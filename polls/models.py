@@ -1,10 +1,10 @@
 from django.db import models
 
 class Question(models.Model):
-    question_text = models.CharField(max_length=300)
-    pub_date = models.DateTimeField('Data publikacji')
-    authors_mail = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
+    question_text = models.CharField(max_length=300)
+    pub_date = models.DateTimeField('Publication Date')
+    authors_mail = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title
