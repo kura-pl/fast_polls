@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Add!</title>
 </head>
 <body>
-    <form action="{% url 'polls:add' %}" method="post">
+    <form action="{% url 'polls:check' %}" method="post">
         {% csrf_token %}
         <input type="text" name="title" id="title" />
-        <input type="submit" value="Vote" />
+        </br>
+        <textarea  name="question" id="question" rows="10" cols="70">Add a question... </textarea>
+        </br>
+        <input type="text" size="70" name="choice0" id="choice0" />
+        </br>
+        <input type="text" size="70" name="choice1" id="choice1" />
+        </br>
+        <input type="text" size="70" name="choice2" id="choice2" />
+        </br>
+        <input type="text" size="70" name="choice3" id="choice3" />
+        </br>
+        <input type="text" size="70" name="choice4" id="choice4" />
+        </br>
+        <input type="email" size="70" name="email" id="email" />
+        </br>
+        <input type="submit" value="Add question." />
     </form>
 </body>
 </html>

@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
+
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/results.html', {'question': question})
@@ -27,6 +28,7 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
+
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')
     template = loader.get_template('polls/index.html')
@@ -34,3 +36,16 @@ def index(request):
         'latest_question_list': latest_question_list,
     }
     return HttpResponse(template.render(context, request))
+
+
+def add(request):
+    return HttpResponse(loader.get_template('polls/add.html').render(request=request))
+
+
+def check(requst):
+    p = requst.POST.get
+    if (p('title') and p('question') and p('email')) and \
+        sum(bool(p('choice{}'.format(x))) for x in range(5)) >= 2:
+        return HttpResponse(loader.get_template('polls/successful_add.html').render())
+    else:
+        return add(requst)
