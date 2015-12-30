@@ -5,6 +5,7 @@
     <title>Fast Polls</title>
 </head>
 <body>
+    {% include 'fast_polls/my_menu.html' %}
     {% if latest_question_list %}
         <ul>
             {% for question in latest_question_list %}

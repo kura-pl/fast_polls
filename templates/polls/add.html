@@ -5,6 +5,7 @@
     <title>Add!</title>
 </head>
 <body>
+    {% include 'fast_polls/my_menu.html' %}
     <form action="{% url 'polls:check' %}" method="post">
         {% csrf_token %}
         <input type="text" name="title" id="title" />

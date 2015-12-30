@@ -3,6 +3,7 @@ from .models import Question, Choice
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 
 def results(request, question_id):
@@ -37,6 +38,8 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+def search(request):
+    return HttpResponse(loader.get_template('polls/search.html').render(request=request))
 
 def add(request):
     return HttpResponse(loader.get_template('polls/add.html').render(request=request))
@@ -46,6 +49,17 @@ def check(requst):
     p = requst.POST.get
     if (p('title') and p('question') and p('email')) and \
         sum(bool(p('choice{}'.format(x))) for x in range(5)) >= 2:
-        return HttpResponse(loader.get_template('polls/successful_add.html').render())
+            question = Question.objects.create(
+                    title=p('title'),
+                    question_text=p('question'),
+                    pub_date=timezone.now(),
+                    authors_mail=p('email')
+            )
+            for x in range(5):
+                c = p('choice{}'.format(x))
+                if c:
+                    question.choice_set.create(choice_text=c, votes=0)
+            question.save()
+            return HttpResponse(loader.get_template('polls/successful_add.html').render())
     else:
         return add(requst)

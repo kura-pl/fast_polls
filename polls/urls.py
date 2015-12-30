@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^(?P<question_id>[0-9]+)$', views.vote, name='vote'),
     url(r'^(?P<question_id>[0-9]+)/results$', views.results, name='results'),
     url(r'^add$', views.add, name='add'),
-    url(r'^check$', views.check, name='check')
+    url(r'^check$', views.check, name='check'),
+    url(r'^search$', views.search, name='search'),
 ]
