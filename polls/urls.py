@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^add$', views.add, name='add'),
     url(r'^check$', views.check, name='check'),
     url(r'^search$', views.search, name='search'),
+    url(r'^searched$', views.searched, name='searched'),
 ]

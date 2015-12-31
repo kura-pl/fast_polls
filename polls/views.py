@@ -1,6 +1,6 @@
 from django.template import loader
 from .models import Question, Choice
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -38,8 +38,17 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 def search(request):
     return HttpResponse(loader.get_template('polls/search.html').render(request=request))
+
+
+def searched(request):
+    wanted = set(request.POST.get('wanted').split())
+    for question in Question.objects.all():
+        q = question[:-1].split()
+        #  TODO napisac wyszukiwanie
+    return index(request)
 
 def add(request):
     return HttpResponse(loader.get_template('polls/add.html').render(request=request))
@@ -60,6 +69,6 @@ def check(requst):
                 if c:
                     question.choice_set.create(choice_text=c, votes=0)
             question.save()
-            return HttpResponse(loader.get_template('polls/successful_add.html').render())
+            return redirect('/polls/{}'.format(question.id))
     else:
         return add(requst)

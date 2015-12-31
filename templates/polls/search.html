@@ -6,5 +6,10 @@
 </head>
 <body>
     {% include 'fast_polls/my_menu.html' %}
+    <form action="{% url 'polls:searched' %}" method="post">
+        {% csrf_token %}
+        <input type="text" size="70" name="wanted" id="wanted" />
+        <input type="submit" value="Search" />
+    </form>
 </body>
 </html>
