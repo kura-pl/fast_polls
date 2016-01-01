@@ -44,11 +44,18 @@ def search(request):
 
 
 def searched(request):
-    wanted = set(request.POST.get('wanted').split())
+    wanted = set(request.POST.get('wanted').lower().split())
+    found_ids = []
     for question in Question.objects.all():
-        q = question[:-1].split()
-        #  TODO napisac wyszukiwanie
-    return index(request)
+        temp = set(str(question).lower().split())
+        if temp & wanted:  # czesc wspolna
+            found_ids.append(question.id)
+    template = loader.get_template('polls/found.html')
+    context = {
+        'found_ids': found_ids,
+        'questions': Question.objects.all()
+    }
+    return HttpResponse(template.render(context, request))
 
 def add(request):
     return HttpResponse(loader.get_template('polls/add.html').render(request=request))

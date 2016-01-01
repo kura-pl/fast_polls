@@ -6,5 +6,16 @@
 </head>
 <body>
     {% include 'fast_polls/my_menu.html' %}
+    {% if found_ids %}
+        <ul>
+            {% for question in questions %}
+                {% if question.id in found_ids %}
+                    <li><a href="/polls/{{ question.id }}">{{ question.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
 </body>
 </html>
