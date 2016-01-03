@@ -1,3 +1,10 @@
+#my_menu {
+}
+
+#my_menu img{
+    display: inline;
+}
+
 #my_menu ul li{
     display: inline;
 }
