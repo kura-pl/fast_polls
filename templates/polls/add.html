@@ -10,20 +10,28 @@
     {% include 'fast_polls/my_menu.html' %}
     <form action="{% url 'polls:check' %}" method="post">
         {% csrf_token %}
+        <p>Title:</p>
         <input type="text" name="title" id="title" />
         </br>
+        <p>Question:</p>
         <textarea  name="question" id="question" rows="10" cols="70" required>Add a question... </textarea>
         </br>
+        <p>Choice 1:</p>
         <input type="text" size="70" required name="choice0" id="choice0" />
         </br>
+        <p>Choice 2:</p>
         <input type="text" size="70" required  name="choice1" id="choice1" />
         </br>
+        <p>Choice 3:</p>
         <input type="text" size="70" name="choice2" id="choice2" />
         </br>
+        <p>Choice 4:</p>
         <input type="text" size="70" name="choice3" id="choice3" />
         </br>
+        <p>Choice 5:</p>
         <input type="text" size="70" name="choice4" id="choice4" />
         </br>
+        <p>Email:</p>
         <input type="email" size="70" required name="email" id="email" />
         </br>
         <input type="submit" value="Add question." />

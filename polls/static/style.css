@@ -1,8 +1,12 @@
 #my_menu {
 }
 
-#my_menu img{
-    display: inline;
+#my_menu p{
+    float: left;
+}
+
+#my_menu ul{
+    float: right;
 }
 
 #my_menu ul li{
