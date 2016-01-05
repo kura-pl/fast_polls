@@ -8,7 +8,8 @@
     <script language="javascript">
         var counter = 2;
         function add() {
-
+            var element0 = document.createElement("p");
+            element0.innerHTML = "Choice " + (counter + 1) + ":";
             var element = document.createElement("input");
             element.setAttribute("type", "text");
             element.setAttribute("size", "70");
@@ -16,9 +17,12 @@
             element.setAttribute("id", "choice" + counter);
 
             var foo = document.getElementById("my_form");
+            foo.appendChild(element0);
             foo.appendChild(element);
+            var element2 = document.createElement("br");
+            foo.appendChild(element2);
             counter += 1;
-
+            document.getElementById("count").setAttribute("value", counter);
         }
         </script>
 </head>
@@ -27,7 +31,9 @@
     <form action="{% url 'polls:check' %}" method="post" id="my_form">
         {% csrf_token %}
         <p>Title:</p>
+        <input type="text" name="count" id="count" value="2" hidden/>
         <input type="text" name="title" id="title" />
+        <input type="submit" value="Submity question!" />
         </br>
         <p>Question:</p>
         <textarea  name="question" id="question" rows="10" cols="70" required>Add a question... </textarea>
@@ -37,21 +43,8 @@
         </br>
         <p>Choice 2:</p>
         <input type="text" size="70" required  name="choice1" id="choice1" />
-        </br>
-        <p>Choice 3:</p>
-        <input type="text" size="70" name="choice2" id="choice2" />
-        </br>
-        <p>Choice 4:</p>
-        <input type="text" size="70" name="choice3" id="choice3" />
-        </br>
-        <p>Choice 5:</p>
-        <input type="text" size="70" name="choice4" id="choice4" />
-        </br>
-        <p>Email:</p>
-        <input type="email" size="70" required name="email" id="email" />
-        </br>
-        <input type="submit" value="Add question." />
         <INPUT type="button" value="Add" onclick="add()"/>
+        </br>
     </form>
 </body>
 </html>

@@ -4,7 +4,6 @@ class Question(models.Model):
     title = models.CharField(max_length=100)
     question_text = models.CharField(max_length=300)
     pub_date = models.DateTimeField('Publication Date')
-    authors_mail = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title

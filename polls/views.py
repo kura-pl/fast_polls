@@ -63,15 +63,15 @@ def add(request):
 
 def check(requst):
     p = requst.POST.get
-    if (p('title') and p('question') and p('email')) and \
+    print(p('count'))
+    if p('title') and p('question') and \
         sum(bool(p('choice{}'.format(x))) for x in range(5)) >= 2:
             question = Question.objects.create(
                     title=p('title'),
                     question_text=p('question'),
                     pub_date=timezone.now(),
-                    authors_mail=p('email')
             )
-            for x in range(5):
+            for x in range(int(p('count'))):
                 c = p('choice{}'.format(x))
                 if c:
                     question.choice_set.create(choice_text=c, votes=0)
