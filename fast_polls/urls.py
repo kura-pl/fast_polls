@@ -21,8 +21,8 @@ from . import views
 urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
-    #url(r'^$', views.index, name='index'),
-    url(r'^$', include('polls.urls')),
+    url(r'^', include('polls.urls')),
     url(r'^faq$', views.faq, name='faq'),
     url(r'^contact$', views.contact, name='contact'),
 ]
+

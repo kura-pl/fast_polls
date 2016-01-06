@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
+from re import findall
+
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -44,12 +46,13 @@ def search(request):
 
 
 def searched(request):
-    wanted = set(request.POST.get('wanted').lower().split())
+    wanted = request.POST.get('wanted').lower().split()
     found_ids = []
     for question in Question.objects.all():
-        temp = set(str(question).lower().split())
-        if temp & wanted:  # czesc wspolna
-            found_ids.append(question.id)
+        title = str(question).lower()
+        for word in wanted:
+            if findall(".*" + word + ".*", title):
+                found_ids.append(question.id)
     template = loader.get_template('polls/found.html')
     context = {
         'found_ids': found_ids,
