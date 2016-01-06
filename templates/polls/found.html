@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <meta charset="UTF-8">
-    <title>Found</title>
-</head>
-<body>
-    {% include 'fast_polls/my_menu.html' %}
-    {% if found_ids %}
+{% extends 'fast_polls/base.html' %}
+{% block main %}
+    <h1>{% block title %}Found{% endblock %}</h1>
+   {% if found_ids %}
         <ul>
             {% for question in questions %}
                 {% if question.id in found_ids %}
@@ -19,5 +12,4 @@
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}

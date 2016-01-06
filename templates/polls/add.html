@@ -1,50 +1,22 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <meta charset="UTF-8">
-    <title>Add!</title>
-    <script language="javascript">
-        var counter = 2;
-        function add() {
-            var element0 = document.createElement("p");
-            element0.innerHTML = "Choice " + (counter + 1) + ":";
-            var element = document.createElement("input");
-            element.setAttribute("type", "text");
-            element.setAttribute("size", "70");
-            element.setAttribute("name", "choice" + counter);
-            element.setAttribute("id", "choice" + counter);
-
-            var foo = document.getElementById("my_form");
-            foo.appendChild(element0);
-            foo.appendChild(element);
-            var element2 = document.createElement("br");
-            foo.appendChild(element2);
-            counter += 1;
-            document.getElementById("count").setAttribute("value", counter);
-        }
-        </script>
-</head>
-<body>
-    {% include 'fast_polls/my_menu.html' %}
-    <form action="{% url 'polls:check' %}" method="post" id="my_form">
-        {% csrf_token %}
-        <p>Title:</p>
-        <input type="text" name="count" id="count" value="2" hidden/>
-        <input type="text" name="title" id="title" />
-        <input type="submit" value="Submity question!" />
-        </br>
-        <p>Question:</p>
-        <textarea  name="question" id="question" rows="10" cols="70" required>Add a question... </textarea>
-        </br>
-        <p>Choice 1:</p>
-        <input type="text" size="70" required name="choice0" id="choice0" />
-        </br>
-        <p>Choice 2:</p>
-        <input type="text" size="70" required  name="choice1" id="choice1" />
-        <INPUT type="button" value="Add" onclick="add()"/>
-        </br>
-    </form>
-</body>
-</html>
+{% extends 'fast_polls/base.html' %}
+{% block main %}
+    <h1>{% block title %}Add{% endblock %}</h1>
+        <form action="{% url 'polls:check' %}" method="post" id="my_form">
+            {% csrf_token %}
+            <p>Title:</p>
+            <input type="text" name="count" id="count" value="2" hidden/>
+            <input type="text" size="53" required name="title" id="title" />
+            <input type="submit" value="Submit question!" />
+            </br>
+            <p>Question:</p>
+            <textarea  name="question" id="question" rows="4" cols="70" required></textarea>
+            </br>
+            <p>Choice 1:</p>
+            <input type="text" size="70" required name="choice0" id="choice0" />
+            </br>
+            <p>Choice 2:</p>
+            <input type="text" size="70" required  name="choice1" id="choice1" />
+            <INPUT type="button" value="Add" onclick="add()"/>
+            </br>
+        </form>
+{% endblock %}

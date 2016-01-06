@@ -17,6 +17,11 @@ ul li a{
     outline: none;
 }
 
+.my_content {
+    margin: auto;
+    width: 50%;
+}
+
 a {
     color: lawngreen;
     outline: none;

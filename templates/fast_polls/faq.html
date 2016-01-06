@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <meta charset="UTF-8">
-    <title>FAQ</title>
-</head>
-<body>
-    {% include 'fast_polls/my_menu.html' %}
-</body>
-</html>
+{% extends 'fast_polls/base.html' %}
+{% block main %}
+    <h1>{% block title %}FAQ{% endblock %}</h1>
+{% endblock %}

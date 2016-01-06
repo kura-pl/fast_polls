@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <meta charset="UTF-8">
-    <title>Vote!</title>
-</head>
-<body>
-    {% include 'fast_polls/my_menu.html' %}
-    <h1>{{ question.title }}</h1>
-    <p>{{ question.question_text }}</p>
-
-    <form action="{% url 'polls:vote' question.id %}" method="post">
-        {% csrf_token %}
-        {% for choice in question.choice_set.all %}
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
-        {% endfor %}
-        <input type="submit" value="Vote" />
-    </form>
-</body>
-</html>
+{% extends 'fast_polls/base.html' %}
+{% block main %}
+    <h1>{% block title %}{{ question.question_text }}{% endblock %}</h1>
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+            {% csrf_token %}
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+            {% endfor %}
+            <input type="submit" value="Vote" />
+        </form>
+{% endblock %}

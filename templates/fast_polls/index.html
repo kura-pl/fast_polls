@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <meta charset="UTF-8">
-    <title>Fast Polls</title>
-</head>
-<body>
-    {% include 'fast_polls/my_menu.html' %}
-    <p>
-        Welcome on Fast Polls site!
-    </p>
-</body>
-</html>
+{% extends 'fast_polls/base.html' %}
+{% block main %}
+    <h1>{% block title %}Index{% endblock %}</h1>
+    <p>Welcome on "Fast Polls" website!</p>
+{% endblock %}

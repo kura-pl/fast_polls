@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <meta charset="UTF-8">
-    <title>Fast Polls</title>
-</head>
-<body>
-    {% include 'fast_polls/my_menu.html' %}
+{% extends 'fast_polls/base.html' %}
+{% block main %}
+    <h1>{% block title %}Index{% endblock %}</h1>
     {% if latest_question_list %}
         <ul>
             {% for question in latest_question_list %}
@@ -17,5 +10,4 @@
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}
