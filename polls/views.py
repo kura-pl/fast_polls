@@ -5,7 +5,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from re import findall
+from random import choice
 import matplotlib.pyplot as plt
+
 
 
 def generate_png(labels, values):
@@ -96,3 +98,8 @@ def check(request):
             return redirect('/polls/{}'.format(question.id))
     else:
         return add(request)
+
+
+def get_random(request):
+    question = choice(Question.objects.all())
+    return redirect('/polls/{}'.format(question.id))
