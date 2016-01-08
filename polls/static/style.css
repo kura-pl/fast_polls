@@ -1,4 +1,8 @@
+* {
+    font-family: 'Lobster';
+}
 #my_menu {
+    background-color: #5f5f5f;
 }
 
 #my_menu p{
@@ -13,17 +17,12 @@
     display: inline;
 }
 
-ul li a{
-    outline: none;
-}
-
 .my_content {
     margin: auto;
     width: 50%;
 }
 
 a {
-    color: lawngreen;
     outline: none;
     text-decoration: none;
 }

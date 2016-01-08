@@ -4,12 +4,26 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-
 from re import findall
+import matplotlib.pyplot as plt
+
+
+def generate_png(labels, values):
+    patches, texts = plt.pie(values)
+    plt.legend(patches, labels, loc="best")
+    plt.axis('equal')
+    plt.tight_layout()
+    plt.savefig('polls/static/chart.png', dpi=50, transparent=True)
 
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
+    choices = question.choice_set.all()
+    choices_texts, choices_votes = [], []
+    for choice in choices:
+        choices_texts.append(choice.choice_text)
+        choices_votes.append(int(choice.votes))
+    generate_png(choices_texts, choices_votes)
     return render(request, 'polls/results.html', {'question': question})
 
 
@@ -60,13 +74,13 @@ def searched(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 def add(request):
     return HttpResponse(loader.get_template('polls/add.html').render(request=request))
 
 
-def check(requst):
-    p = requst.POST.get
-    print(p('count'))
+def check(request):
+    p = request.POST.get
     if p('title') and p('question') and \
         sum(bool(p('choice{}'.format(x))) for x in range(5)) >= 2:
             question = Question.objects.create(
@@ -81,4 +95,4 @@ def check(requst):
             question.save()
             return redirect('/polls/{}'.format(question.id))
     else:
-        return add(requst)
+        return add(request)
