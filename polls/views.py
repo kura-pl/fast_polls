@@ -1,5 +1,5 @@
 from django.template import loader
-from .models import Question, Choice
+from .models import Question, Choice , Faq
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -7,7 +7,6 @@ from django.utils import timezone
 from re import findall
 from random import choice
 import matplotlib.pyplot as plt
-
 
 
 def generate_png(labels, values):
@@ -103,3 +102,11 @@ def check(request):
 def get_random(request):
     question = choice(Question.objects.all())
     return redirect('/polls/{}'.format(question.id))
+
+
+def get_faq(request):
+    template = loader.get_template('polls/faq.html')
+    context = {
+        'questions': Faq.objects.all()
+    }
+    return HttpResponse(template.render(context, request))

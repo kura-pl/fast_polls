@@ -1,6 +1,6 @@
 from django.contrib import admin
-
-from .models import Choice, Question
+from django.contrib.auth.models import Group, User
+from .models import Choice, Question, Faq
 
 
 class ChoiceInline(admin.StackedInline):
@@ -13,3 +13,5 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Faq)
+admin.site.unregister((Group, User))

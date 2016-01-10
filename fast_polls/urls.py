@@ -6,7 +6,6 @@ urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('polls.urls')),
-    url(r'^faq$', views.faq, name='faq'),
     url(r'^contact$', views.contact, name='contact'),
     url(r'^.*$', views.my_404, name='my_404')
 ]

@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^search$', views.search, name='search'),
     url(r'^searched$', views.searched, name='searched'),
     url(r'^random$', views.get_random, name='get_random'),
+    url(r'^faq$', views.get_faq, name='get_faq'),
 ]
