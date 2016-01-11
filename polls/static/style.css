@@ -38,8 +38,9 @@ a {
     text-decoration: none !important;
 }
 
-h1, form, a:hover, h3 {
+h1, form, a:hover, h3, button {
     color: #0c4b33;
+    display: inline;
 }
 
 a {

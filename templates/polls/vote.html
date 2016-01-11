@@ -10,4 +10,5 @@
             {% endfor %}
             <input type="submit" value="Vote" />
         </form>
+        <button onclick="location.href ='{% url "polls:results" question.id %}';" id="my_results">See results</button>
 {% endblock %}

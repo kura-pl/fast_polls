@@ -1,6 +1,7 @@
 {% extends 'fast_polls/base.html' %}
 {% block main %}
-    <h1>{% block title %}FAQ{% endblock %}</h1>
+    <h1>{% block title %}FAQ {% endblock %}</h1>
+    </br>
     {% for question in questions %}
         <h3> {{ question.question }}</h3>
         <p> {{ question.answer }}</p>
