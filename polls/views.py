@@ -1,5 +1,5 @@
 from django.template import loader
-from .models import Question, Choice , Faq
+from .models import Question, Choice, Faq
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -10,6 +10,11 @@ import matplotlib.pyplot as plt
 
 
 def generate_png(labels, values):
+    """Funkcja tworzaca wykres.
+    :param values: wartosci liczbowe
+    :param labels: etykiety
+    """
+
     patches, texts = plt.pie(values)
     plt.legend(patches, labels, loc="best")
     plt.axis('equal')
@@ -18,6 +23,8 @@ def generate_png(labels, values):
 
 
 def results(request, question_id):
+    """Wyswietlanie wyników."""
+
     question = get_object_or_404(Question, pk=question_id)
     choices = question.choice_set.all()
     choices_texts, choices_votes = [], []
@@ -29,11 +36,12 @@ def results(request, question_id):
 
 
 def vote(request, question_id):
+    """Panel głosowania."""
+
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
         return render(request, 'polls/vote.html', {
             'question': question,
             'error_message': "You didn't select a choice.",
@@ -41,14 +49,14 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
+        # unikanie ponownego głosowania przy nacisnieciu 'wstecz'
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')
+    """Przegląladarka obecnych pytan."""
+
+    latest_question_list = Question.objects.order_by('-pub_date')  # sortowanie wedlug daty
     template = loader.get_template('polls/index.html')
     context = {
         'latest_question_list': latest_question_list,
@@ -57,10 +65,14 @@ def index(request):
 
 
 def search(request):
+    """Ekran wyszukiwarki."""
+
     return HttpResponse(loader.get_template('polls/search.html').render(request=request))
 
 
 def searched(request):
+    """Wyswietlanie znalezionych ankiet."""
+
     wanted = request.POST.get('wanted').lower().split()
     found_ids = []
     for question in Question.objects.all():
@@ -77,10 +89,14 @@ def searched(request):
 
 
 def add(request):
+    """Ekran dodawania nowej ankiety."""
+
     return HttpResponse(loader.get_template('polls/add.html').render(request=request))
 
 
 def check(request):
+    """Ekran ankiety."""
+
     p = request.POST.get
     if p('title') and p('question') and \
         sum(bool(p('choice{}'.format(x))) for x in range(5)) >= 2:
@@ -100,11 +116,15 @@ def check(request):
 
 
 def get_random(request):
+    """Losowanie ankiety."""
+
     question = choice(Question.objects.all())
     return redirect('/polls/{}'.format(question.id))
 
 
 def get_faq(request):
+    """Wyswietlanie FAQ."""
+
     template = loader.get_template('polls/faq.html')
     context = {
         'questions': Faq.objects.all()

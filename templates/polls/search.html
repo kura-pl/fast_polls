@@ -1,6 +1,7 @@
 {% extends 'fast_polls/base.html' %}
 {% block main %}
     <h1>{% block title %}Search{% endblock %}</h1>
+    </br>
     <form action="{% url 'polls:searched' %}" method="post">
         {% csrf_token %}
         <input type="text" size="70" name="wanted" id="wanted" />
